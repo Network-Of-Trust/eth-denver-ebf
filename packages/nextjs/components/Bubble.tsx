@@ -85,7 +85,6 @@ export default function Bubble() {
           };
         });
 
-
         console.log("newAttestations----------------->>>>>>>>>", newAttestations);
 
         function groupByProperty(array: any, property: any) {
@@ -100,7 +99,6 @@ export default function Bubble() {
         }
 
         const groupedData = groupByProperty(newAttestations, "tokenID");
-
 
         console.log("groupedData----------------->>>>>>>>>", groupedData);
         setAttestations(groupedData);
@@ -138,6 +136,7 @@ export default function Bubble() {
   }, [userData]);
   return (
     <div ref={circleRef}>
+      {!address && <h1 className="text-center">Please connect the wallet to experience the website</h1>}
       <BubbleUI options={options} className="myBubbleUI">
         {childElements?.map(
           (

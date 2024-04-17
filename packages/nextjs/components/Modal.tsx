@@ -287,6 +287,7 @@ export default function BasicModal({
                 <button
                   className="bg-primary hover:bg-secondary hover:shadow-md focus:!bg-secondary active:!text-neutral py-1.5 px-3 text-sm rounded-full justify-center items-center"
                   onClick={onAttest}
+                  disabled={!address || !isConnected || isIssuing}
                 >
                   {isIssuing ? "Issuing..." : "Issue Attestation"}
                 </button>

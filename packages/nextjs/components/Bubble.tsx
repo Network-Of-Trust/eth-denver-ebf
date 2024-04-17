@@ -136,7 +136,7 @@ export default function Bubble() {
   }, [userData]);
   return (
     <div ref={circleRef}>
-      {!address && <h1 className="text-center">Please connect the wallet to experience the website</h1>}
+      {!address && <h1 className="text-center  text-red-500">Please connect the wallet to experience the website</h1>}
       <BubbleUI options={options} className="myBubbleUI">
         {childElements?.map(
           (

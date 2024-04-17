@@ -151,6 +151,7 @@ export default function BasicModal({
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
+        {!address && <h1 className="text-center text-red-500">Please connect the wallet to experience the website</h1>}
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div
             style={{

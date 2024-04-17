@@ -1,18 +1,17 @@
 "use client";
 
 import React, { useCallback, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
+import { useAccount } from "wagmi";
 import { Bars3Icon, BugAntIcon } from "@heroicons/react/24/outline";
 import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
-import dynamic from 'next/dynamic';
 
-const Attest = dynamic(() => import('../app/certify/page'), {ssr: false})
-const Graph = dynamic(() => import('../app/graph/page'), {ssr: false})
-
+const Attest = dynamic(() => import("../app/certify/page"), { ssr: false });
+const Graph = dynamic(() => import("../app/graph/page"), { ssr: false });
 
 type HeaderMenuLink = {
   label: string;
@@ -20,42 +19,42 @@ type HeaderMenuLink = {
   icon?: React.ReactNode;
 };
 
-export const menuLinks: HeaderMenuLink[] = [
-  {
-    label: "Home",
-    href: "/",
-  },
-  {
-    label: "Profile",
-    href: "/my-profile",
-  },
-  {
-    label: "Register User",
-    href: "/register-user",
-  },
-  {
-    label: "Create Project",
-    href: "/create-project",
-  },
-  /*   {
-    label: "Schemas",
-    href: "/schemas",
-  }, */
-  
-  {
-    label: "Graph",
-    href: "/graph",
-  },
-  // {
-  //   label: "Debug Contracts",
-  //   href: "/debug",
-  //   icon: <BugAntIcon className="h-4 w-4" />,
-  // },
-];
-
 export const HeaderMenuLinks = () => {
   const pathname = usePathname();
+  const { address } = useAccount();
 
+  const menuLinks: HeaderMenuLink[] = [
+    {
+      label: "Home",
+      href: "/",
+    },
+  ];
+  if (address) {
+    const additionalLinks: HeaderMenuLink[] = [
+      {
+        label: "Profile",
+        href: "/my-profile",
+      },
+      {
+        label: "Register User",
+        href: "/register-user",
+      },
+      {
+        label: "Create Project",
+        href: "/create-project",
+      },
+
+      {
+        label: "Graph",
+        href: "/graph",
+      },
+      {
+        label: "Certify",
+        href: "/certify",
+      },
+    ];
+    menuLinks.push(...additionalLinks);
+  }
   return (
     <>
       {menuLinks.map(({ label, href, icon }) => {
@@ -75,12 +74,6 @@ export const HeaderMenuLinks = () => {
           </li>
         );
       })}
-
-      <button>
-        <Link href={"/certify"} passHref>
-          <span>Certify</span>
-        </Link>
-      </button>
 
      
     </>

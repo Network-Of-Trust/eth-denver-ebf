@@ -213,16 +213,19 @@ export default function BasicModal({
           </div>
 
           {remainingTags?.length > 0 && (
-            <div
+            <button
               className={`bg-primary hover:bg-secondary hover:shadow-md focus:!bg-secondary active:!text-neutral py-1.5 px-3 text-sm rounded-full gap-2 grid grid-flow-col justify-center m-1`}
-              onClick={() => setOpen(true)}
+              onClick={() => {
+                setOpen(true);
+              }}
               style={{
                 flexDirection: "column",
                 justifyContent: "center", // This ensures the button is centered vertically if needed
               }}
+              disabled={!isConnected}
             >
               Add new benefits
-            </div>
+            </button>
           )}
         </div>
 
@@ -236,11 +239,10 @@ export default function BasicModal({
               }
 
               const average = attestations
-              .filter((attestation: any) => attestation.impactType === child.tags[index])
-              .reduce((acc: any, curr: any, _: any, arr: any) => acc + Number(curr.score) / arr.length, 0);
+                .filter((attestation: any) => attestation.impactType === child.tags[index])
+                .reduce((acc: any, curr: any, _: any, arr: any) => acc + Number(curr.score) / arr.length, 0);
 
-
-              console.log("average",child.tags[index],average,attestations)
+              console.log("average", child.tags[index], average, attestations);
               return (
                 <div
                   key={index}
@@ -264,7 +266,9 @@ export default function BasicModal({
                   >
                     {icon[0].icon}
                   </span>
-                  <p>{icon[0].name}({average})</p>
+                  <p>
+                    {icon[0].name}({average})
+                  </p>
                   <button className="bg-primary hover:bg-secondary hover:shadow-md focus:!bg-secondary active:!text-neutral py-1.5 px-3 text-sm rounded-full gap-2 grid grid-flow-col justify-center m-1">
                     +
                   </button>
@@ -283,7 +287,6 @@ export default function BasicModal({
                 <button
                   className="bg-primary hover:bg-secondary hover:shadow-md focus:!bg-secondary active:!text-neutral py-1.5 px-3 text-sm rounded-full justify-center items-center"
                   onClick={onAttest}
-                 
                 >
                   {isIssuing ? "Issuing..." : "Issue Attestation"}
                 </button>
